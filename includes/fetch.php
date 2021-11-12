@@ -9,8 +9,8 @@ if(!empty($_FILES['csv_file']['name']))
  while($row = fgetcsv($file_data))
  {
   $row_data[] = array(
-   'student_name'  => $row[0],
-   'student_phone'  => $row[1]
+   'user_name'  => $row[0],
+   'user_email'  => $row[1]
   );
  }
  $output = array(

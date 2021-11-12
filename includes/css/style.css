@@ -1,0 +1,104 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+    padding: 0px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: rgb(62, 66, 70);
+}
+
+.content-container{
+    min-height: 100vh;
+    width: 100%;
+}
+
+.lesson-title{
+    width: 100%;
+    margin: 20px auto;
+    display: flex;
+}
+.lesson-title h2{
+    margin: auto;
+    text-align: center;
+    color: wheat;
+}
+
+.user-list-container{
+    width: 100%;
+    display: flex;
+}
+
+.user-list-container .lists-of-users{
+    width: 50%;
+    margin: auto;
+}
+
+.user-list-container .lists-of-users .list-header > h3{
+    color: rgb(194, 194, 194);
+}
+    
+.user-list-container .lists-of-users .user-details-container{
+    display: flex;
+    justify-content: space-between;
+    margin: 10px ;
+
+}
+.user-list-container .lists-of-users .user-details-container .username{
+    color: rgb(192, 148, 196);
+}
+.user-list-container .lists-of-users .user-details-container .userEmail{
+    font-size: 105%;
+    color: rgb(192, 148, 196);
+    font-weight: bold;
+}
+
+.message-container{
+    margin-top: 80px;
+    width: 100%;
+    display: flex;
+}
+
+.message-container .message-inner-container{
+    width: 55%;
+    margin: auto;
+}
+
+.message-container .message-inner-container .message-container-title > h3{
+    color: rgb(194, 194, 194);
+}
+
+
+
+.message-container .message-inner-container > form > textarea{
+    width: 100%;
+    color: gray;
+    padding: 10px;
+    border-radius: 12px;
+    border: 1px solid lightgray;
+    outline: none;
+    resize: none;
+    background-color: rgb(188, 217, 255);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.message-container .message-inner-container > form > .info-msg {
+    font-size: 85%;
+    color: white;
+}
+
+.message-container .message-inner-container > form > .btn-container {
+    width: 100%;
+    margin: 20px 0px;
+}
+.message-container .message-inner-container > form > .btn-container button{
+    width: 100%;
+    padding: 20px;
+    border: 0px;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: 0px;
+    background-color: rgb(62, 66, 70);
+    color: white;
+    text-align: center;
+}

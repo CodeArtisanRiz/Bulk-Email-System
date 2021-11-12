@@ -15,7 +15,7 @@
   </style>
  </head>
  <body>
-  <div class="container">
+  <div align="center" class="container">
    <br />
    <h3 align="center">CSV File Editing and Importing in PHP</h3>
    <br />
@@ -31,6 +31,11 @@
                     <input type="submit" name="upload" id="upload" value="Upload" style="margin-top:10px;" class="btn btn-info" />
                 </div>  
                 <div style="clear:both"></div>
+                <div align="center">
+                    <br>
+                    <button><a href="./form.php">Use Previously Imported Data</a></button>
+                </div>
+                
    </form>
    <br />
    <br />
@@ -46,7 +51,7 @@ $(document).ready(function(){
  $('#upload_csv').on('submit', function(event){
   event.preventDefault();
   $.ajax({
-   url:"fetch.php",
+   url:"./includes/fetch.php",
    method:"POST",
    data:new FormData(this),
    dataType:'json',
@@ -71,8 +76,8 @@ $(document).ready(function(){
      for(var count = 0; count < data.row_data.length; count++)
      {
       html += '<tr>';
-      html += '<td class="student_name" contenteditable>'+data.row_data[count].student_name+'</td>';
-      html += '<td class="student_phone" contenteditable>'+data.row_data[count].student_phone+'</td></tr>';
+      html += '<td class="user_name" contenteditable>'+data.row_data[count].user_name+'</td>';
+      html += '<td class="user_email" contenteditable>'+data.row_data[count].user_email+'</td></tr>';
      }
     }
     html += '<table>';
@@ -85,21 +90,24 @@ $(document).ready(function(){
  });
 
  $(document).on('click', '#import_data', function(){
-  var student_name = [];
-  var student_phone = [];
-  $('.student_name').each(function(){
-   student_name.push($(this).text());
+  var user_name = [];
+  var user_email = [];
+  $('.user_name').each(function(){
+   user_name.push($(this).text());
   });
-  $('.student_phone').each(function(){
-   student_phone.push($(this).text());
+  $('.user_email').each(function(){
+   user_email.push($(this).text());
   });
   $.ajax({
-   url:"import.php",
+   url:"./includes/import.php",
    method:"post",
-   data:{student_name:student_name, student_phone:student_phone},
+   data:{user_name:user_name, user_email:user_email},
    success:function(data)
    {
     $('#csv_file_data').html('<div class="alert alert-success">Data Imported Successfully</div>');
+    
+        window.location.assign("./form.php")
+    
    }
   })
  });
