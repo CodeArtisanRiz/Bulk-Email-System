@@ -4,6 +4,8 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
+error_reporting(0);
+
 
 //Load Composer"s autoloader
 // require "vendor/autoload.php";
@@ -12,7 +14,19 @@ require_once("./includes/vendor/PHPMailer/SMTP.php");
 require_once("./includes/vendor/PHPMailer/Exception.php");
 require_once ("./includes/conn/conn.php");
 
+$conn = dbConnection();
 
+$mailSubject = $_POST['subject'];
+$message = $_POST['email-message'];
+
+
+
+$fetch_users_sql = "SELECT * FROM recipients";
+$fetch_result = mysqli_query($conn, $fetch_users_sql);
+
+while ($user = mysqli_fetch_assoc($fetch_result)) {
+    sendEmail($user['email'], $user['name'], $message, $mailSubject);
+}
 
 function sendEmail($recipient_email, $recipient_fullname, $message, $mailSubject){
 
@@ -47,7 +61,7 @@ try {
     //Attachments
     // $mail->addAttachment("/var/tmp/file.tar.gz");         //Add attachments
     // $mail->addAttachment("/tmp/image.jpg", "new.jpg");    //Optional name
-    // $mail->addAttachment($attachmentFile);
+    // $mail->addAttachment($uploadfile, $filename);
     //Content
     $mail->Subject = $mailSubject;
     $mail->setFrom("noreply@bulksys.ml");
@@ -57,12 +71,45 @@ try {
     
     // att strt
 
+$name_of_uploaded_file =
+    basename($_FILES['uploaded_file']['name']);
+//get the file extension of the file
+$type_of_uploaded_file =
+    substr($name_of_uploaded_file,
+    strrpos($name_of_uploaded_file, '.') + 1);
+$size_of_uploaded_file =
+    $_FILES["uploaded_file"]["size"]/1024;//size in KBs
 
+$files = array_filter($_FILES['upload']['name']); //Use something similar before processing files.
+// Count the number of uploaded files in array
+$total_count = count($_FILES['upload']['name']);
+// Loop through every file
+for( $i=0 ; $i < $total_count ; $i++ ) {
+   //The temp file path is obtained
+   $tmpFilePath = $_FILES['upload']['tmp_name'][$i];
+   //A file path needs to be present
+   if ($tmpFilePath != ""){
+      //Setup our new file path
+      $newFilePath = "./uploads/" . $_FILES['upload']['name'][$i];
+      //File is uploaded to temp dir
+      if(move_uploaded_file($tmpFilePath, $newFilePath)) {
+         //Other code goes here
+        //  $mail->addAttachment($newFilePath);
+        // $newDocFileWithPath = $newFilePath;
+        
+      }
+   }
+}
 
     // att end
     $mail->Body = "Hey, ".$recipient_fullname."<br>".$message;
     $mail->addAddress($recipient_email, $recipient_fullname);     //Add a recipient
     // $mail->AltBody = "This is the body in plain text for non-HTML mail clients";
+    if($newFilePath !=null){
+    $mail->addAttachment($newFilePath);
+    }else{
+        print '';
+    }
     $mail->smtpClose();
 
     $mail->send();

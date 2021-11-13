@@ -20,20 +20,26 @@
                     <h3>Previously Imported Data</h3>
                 </div>
                 <?php 
-                    require('./functions.php');
+                    // require('./functions.php');
 
-                    $conn = dbConnection();
+                    // $conn = dbConnection();
 
-                    $fetch_users_sql = "SELECT * FROM recipients";
-                    $fetch_result = mysqli_query($conn, $fetch_users_sql);
+                    // $fetch_users_sql = "SELECT * FROM recipients";
+                    // $fetch_result = mysqli_query($conn, $fetch_users_sql);
 
-                    while ($user = mysqli_fetch_assoc($fetch_result)) { ?>
+                    // while ($user = mysqli_fetch_assoc($fetch_result)) { ?>
 
-                        <div class="user-details-container">
-                            <div class="username"><?php echo $user['name']; ?></div>
-                            <div class="userEmail"><?php echo $user['email']; ?></div>
-                        </div>
-                <?php } ?>
+                    <!-- //     <div class="user-details-container"> -->
+                    <!-- //         <div class="username"> -->
+                        <?php 
+                        // echo $user['name']; 
+                        ?>
+                        <!-- </div> -->
+                    <!-- //         <div class="userEmail"><?php echo $user['email']; ?></div> -->
+                    <!-- //     </div> -->
+                <?php 
+            // }
+             ?>
             </div>
         </div>
 
@@ -43,11 +49,12 @@
                 <div class="message-container-title">
                     <h3>Send Message to Users</h3>
                 </div>
-                <form id="message-form" method="post" role="form" class="php-email-form" enctype="multipart/form-data">
+                <form action="functions.php" method="post" role="form" class="php-email-form" enctype="multipart/form-data">
                     <div class="info-msg"></div>
                     <input type="text" name="subject" required value="attach">
                     <textarea name="email-message" id="email-message" 
                      placeholder="type a message to to be sent as email" cols="30" rows="10"></textarea>
+                     <input type="hidden" name="MAX_FILE_SIZE" value="100000">
                      <input class="form-control-file" name="upload[]" rows="5" multiple="multiple"
                      accept="image/png,image/jpeg" type="file" id="photo">
                                 
