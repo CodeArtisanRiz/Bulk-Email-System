@@ -20,26 +20,17 @@
                     <h3>Previously Imported Data</h3>
                 </div>
                 <?php 
-                    // require('./functions.php');
+                    require('./includes/conn/conn.php');
+                    $conn = dbConnection();
+                    $fetch_users_sql = "SELECT * FROM recipients";
+                    $fetch_result = mysqli_query($conn, $fetch_users_sql);
 
-                    // $conn = dbConnection();
-
-                    // $fetch_users_sql = "SELECT * FROM recipients";
-                    // $fetch_result = mysqli_query($conn, $fetch_users_sql);
-
-                    // while ($user = mysqli_fetch_assoc($fetch_result)) { ?>
-
-                    <!-- //     <div class="user-details-container"> -->
-                    <!-- //         <div class="username"> -->
-                        <?php 
-                        // echo $user['name']; 
-                        ?>
-                        <!-- </div> -->
-                    <!-- //         <div class="userEmail"><?php echo $user['email']; ?></div> -->
-                    <!-- //     </div> -->
-                <?php 
-            // }
-             ?>
+                    while ($user = mysqli_fetch_assoc($fetch_result)) { ?>
+                         <div class="user-details-container">
+                            <div class="username"> <?php echo $user['name'];?></div>
+                             <div class="userEmail"><?php echo $user['email']; ?></div>
+                         </div>
+                <?php } ?>
             </div>
         </div>
 
@@ -54,10 +45,10 @@
                     <input type="text" name="subject" required value="attach">
                     <textarea name="email-message" id="email-message" 
                      placeholder="type a message to to be sent as email" cols="30" rows="10"></textarea>
-                     <input type="hidden" name="MAX_FILE_SIZE" value="100000">
-                     <input class="form-control-file" name="upload[]" rows="5" multiple="multiple"
+                     <input class="form-control-file" name="attachments[]" rows="5" multiple="multiple"
                      accept="image/png,image/jpeg" type="file" id="photo">
-                                
+                     <input type="text" hidden name="user_id" value="no-reply@bulksys.ml">
+                     <input type="text" hidden name="user_pass" value="Brainkraft1@">
                      <div class="btn-container">
                          <button>Send Email</button>
                      </div>
